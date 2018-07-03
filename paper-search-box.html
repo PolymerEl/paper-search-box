@@ -551,7 +551,9 @@ respectively.
         },
 
         notifyResize: function() {
-          this.debounce('paper-search-box-resize', this.$.menuButton.$.dropdown.notifyResize, 20);
+          this.debounce('paper-search-box-resize', function() {
+            this.$.menuButton.$.dropdown.notifyResize();
+          }, 20);
         }
 
       });
