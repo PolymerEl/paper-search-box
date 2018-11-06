@@ -43,7 +43,6 @@
     let subTemplate;
 
     customElements.whenDefined('paper-dropdown-menu').then(() => {
-      console.info('Defined');
 
       /**
        * ## PaperSearchBox
@@ -112,11 +111,6 @@
             anchor.parentNode.appendChild(tplProgress);
           }
           return subTemplate;
-        }
-
-        connectedCallback() {
-          super.connectedCallback();
-          console.info('atttached');
         }
 
         /* 

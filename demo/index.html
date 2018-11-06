@@ -8,23 +8,22 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-
-    <!-- Ensure Web Animations polyfill is loaded since neon-animation 2.0 doesn't import it -->
+  <!-- Ensure Web Animations polyfill is loaded since neon-animation 2.0 doesn't import it -->
   <link rel="import" href="../../neon-animation/web-animations.html">
   <!-- <link rel="import" href="../../paper-chip/paper-chip.html"> -->
   <link rel="import" href="../../paper-item/paper-item.html">
   <link rel="import" href="../../paper-listbox/paper-listbox.html">
-
   <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
   <link rel="import" href="iron-ajax-mock.html">
   <link rel="import" href="../paper-search-box.html">
   <style is="custom-style" include="demo-pages-shared-styles">
-      :root {
-        --demo-snippet-demo: {
-          /*background-color: #7B1FA2;*/
-        };
-      }
+  :root {
+    --demo-snippet-demo: {
+      /*background-color: #7B1FA2;*/
+    }
 
+    ;
+  }
   </style>
 </head>
 
@@ -33,58 +32,57 @@
     <h3>Basic paper-search-box demo</h3>
     <demo-snippet>
       <template preserve-content>
-         <dom-bind id="app">
+        <dom-bind id="app">
           <template>
-          <style is="custom-style">
-          paper-item {
-            height: 48px;
-          }
+            <style is="custom-style">
+            paper-item {
+              height: 48px;
+            }
 
-          paper-item>div {
-            @apply(--layout-flex);
-          }
+            paper-item>div {
+              @apply(--layout-flex);
+            }
 
-          .custom {
-             /*width: 290px;*/
-          }
-          </style>
-          <iron-ajax auto url="/api/search" params="[[params]]" last-response="{{data}}" loading="{{loading}}" debounce-duration="30"></iron-ajax>
-          <paper-search-box  width= "{{width}}" loading="[[loading]]" selected-item="[[value]]" placeholder="Search" selected-item-label="{{params.search}}" >
-             <paper-listbox style$="width: [[width]]px;" slot="dropdown-content" class="dropdown-content" selected="{{value}}" attr-for-selected="name">
-              <template is="dom-repeat" items="[[data]]" >
-                <paper-item label="[[item.label]]" name="[[item.id]]">[[item.label]]</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-search-box>
-          <div>value: [[value]]</div>
-          <div>params: [[params.search]]</div>
-          <!-- <paper-input label="test"></paper-input> -->
-        </template>
-      </dom-bind>
-    </template>
-        <script>
-        window.addEventListener('WebComponentsReady', function() {
-          let app = document.querySelector('#app');
+            .custom {
+              /*width: 290px;*/
+            }
+            </style>
+            <iron-ajax auto url="/api/search" params="[[params]]" last-response="{{data}}" loading="{{loading}}" debounce-duration="30"></iron-ajax>
+            <paper-search-box width="{{width}}" loading="[[loading]]" selected-item="[[value]]" placeholder="Search" selected-item-label="{{params.search}}">
+              <paper-listbox style$="width: [[width]]px;" slot="dropdown-content" class="dropdown-content" selected="{{value}}" attr-for-selected="name">
+                <template is="dom-repeat" items="[[data]]">
+                  <paper-item label="[[item.label]]" name="[[item.id]]">[[item.label]]</paper-item>
+                </template>
+              </paper-listbox>
+            </paper-search-box>
+            <div>value: [[value]]</div>
+            <div>params: [[params.search]]</div>
+            <!-- <paper-input label="test"></paper-input> -->
+          </template>
+        </dom-bind>
+      </template>
+      <script>
+      window.addEventListener('WebComponentsReady', function() {
+        let app = document.querySelector('#app');
 
-          app.value="Salte";
-          app.params = {search:''};
-          app.data = [{
-            label: 'Polymer University',
-            id: 'Polymer',
-            type: 'School'
-          }, {
-            label: 'Salte University',
-            id: 'Salte',
-            type: 'School'
-          }, {
-            label: 'Another University',
-            id: 'another',
-            type: 'School'
-          }];
+        app.value = "Salte";
+        app.params = { search: '' };
+        app.data = [{
+          label: 'Polymer University',
+          id: 'Polymer',
+          type: 'School'
+        }, {
+          label: 'Salte University',
+          id: 'Salte',
+          type: 'School'
+        }, {
+          label: 'Another University',
+          id: 'another',
+          type: 'School'
+        }];
 
-        });
-
-        </script>
+      });
+      </script>
       </template>
     </demo-snippet>
   </div>
