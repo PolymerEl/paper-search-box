@@ -87,13 +87,19 @@
             },
 
             /* 
-             * `width` notify the width of the component so taht we can align attached menu 
+             * `width` notify the width of the component so that we can align attached menu 
              */
             width: {
               type: String,
               notify: true
             }
           };
+        }
+
+        static get observers() {
+          return [
+            '_observeValue(value)'
+          ];
         }
 
         // Note(cg): extend baseclass template by inserting `subTpl` within #chart.
@@ -108,17 +114,28 @@
 
             subTemplate.content.querySelector('style').parentNode.appendChild(tplStyle);
 
+            // Note(cg): we want to be able to search !
+            anchor.removeAttribute('readonly');
+            // Note(cg): we need two-way binding.
+            anchor.setAttribute('value', '{{value}}');
             anchor.replaceChild(tplSearch, anchor.querySelector('iron-icon'));
             anchor.parentNode.appendChild(tplProgress);
           }
           return subTemplate;
         }
 
+        _observeValue(value) {
+          if(!value) {
+            this.clear();
+          }
+          this._setSelectedItemLabel(value);
+        }
+
         /* 
          * remove list data
          */
         clear(e) {
-          e.stopPropagation();
+          e && e.stopPropagation();
           if (this.$.menuButton._dropdownContent) {
             this.$.menuButton._dropdownContent.select(null);
           }

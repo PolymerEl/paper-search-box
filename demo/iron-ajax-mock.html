@@ -31,7 +31,7 @@
             id: 'Salte',
             type: 'School'
           }, {
-            label: 'Another University',
+            label: 'Another looong University',
             id: 'another',
             type: 'School'
       }]);
@@ -41,9 +41,9 @@
       this.debounce('request', function() {
         this.set('loading', true);
         setTimeout(function() {
-          if (this.params.keyword) {
+          if (this.params.search) {
             this.set('lastResponse', this.mockData.filter(function(value) {
-              return value.keyword.toUpperCase().indexOf(this.params.keyword.toUpperCase()) !== -1;
+              return value.label.toUpperCase().indexOf(this.params.search.toUpperCase()) > -1;
             }.bind(this)));
           } else {
             this.set('lastResponse', this.mockData);

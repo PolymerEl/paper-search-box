@@ -64,9 +64,9 @@
       window.addEventListener('WebComponentsReady', function() {
         let app = document.querySelector('#app');
 
-        app.value = "Salte";
+        // app.value = "Salte";
         app.params = { search: '' };
-        app.data = [{
+        app._data = [{
           label: 'Polymer University',
           id: 'Polymer',
           type: 'School'
