@@ -102,7 +102,7 @@
           ];
         }
 
-        // Note(cg): extend baseclass template by inserting `subTpl` within #chart.
+        // Note(cg): extend baseclass template
         static get template() {
           if (!subTemplate) {
             subTemplate = PaperDropdownMenu.template.cloneNode(true);
@@ -118,6 +118,8 @@
             anchor.removeAttribute('readonly');
             // Note(cg): we need two-way binding.
             anchor.setAttribute('value', '{{value}}');
+            // Note(cg): so that we can do this.$.input
+            anchor.setAttribute('id', 'input');
             anchor.replaceChild(tplSearch, anchor.querySelector('iron-icon'));
             anchor.parentNode.appendChild(tplProgress);
           }
@@ -128,7 +130,49 @@
           if(!value) {
             this.clear();
           }
+          
           this._setSelectedItemLabel(value);
+          
+          if(value ) {
+            if(this.__cacheOpen) {
+              this.__allowOpen()
+            }
+            this.$.menuButton.disabled = false;
+            if(!this.opened) {
+              this.open();
+              setTimeout(() => {this.$.input.focus()}, 20);
+            }
+          }
+        }
+
+         connectedCallback() {
+            super.connectedCallback();
+            Polymer.RenderStatus.afterNextRender(this, () => {
+              if(!this.value) {
+                this.__preventOpen();
+              }
+            });
+          } 
+
+       __preventOpen() {
+        this.__cacheOpen = this.$.menuButton.open;
+        this.$.menuButton.open = ()=>{}
+       }   
+
+       __allowOpen() {
+        this.$.menuButton.open = this.__cacheOpen
+        this.__cacheOpen = null;
+       }   
+
+
+        /**
+         * @override
+         * Show the dropdown content - only when we have value
+         */
+        open() {
+          if (this.value) {
+            this.$.menuButton.open();
+          }
         }
 
         /* 
@@ -145,6 +189,8 @@
         _openedChanged() {
           this.width = this.getBoundingClientRect().width;
           super._openedChanged();
+          // if(this.value) {
+          // }
         }
 
         _hasValue(label) {
